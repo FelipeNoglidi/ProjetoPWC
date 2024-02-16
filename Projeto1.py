@@ -1,19 +1,23 @@
-#Agora, para resolver casos mais complexos, fiz uso do RegExr, visto que é mais agradável para lidar com Strings.
-#Neste caso, o que fiz foi encontrar um "espaço" seguido por algum digito númerico "\s(?=\d)" e realizar um split nesse "espaço" em questão.
+#Para os casos mais complexos, precisei de ir mais a fundo nos conceitos de expressões regulares.
+#Para verificar a funcionalidade de algumas expressões utilizei o site: https://regexr.com/
+#Utilizei o ArrayEntrada e o for para testes.
 
-import re
+import re #Import da biblioteca do regex.
 
-# Como funcionaria o programa na prática
-ruas = input("Informe o endereço desejado: ")
+entrada = input("Informe o endereço desejado: ")
+#ArrayEntrada = ["Miritiba 339", "Babaçu 500", "Cambuí 804B", "Rio Branco 23", "Quirino dos Santos 23 b" ,"4, Rua de la République", "100 Brodway Av", "Calle Sagasta, 26", "Calle 44 No 1991"]
 
-resultado = re.split(r"\s(?=\d)", ruas) #Realiza um split em um local onde há um "espaço seguido por um dígito numérico."
-print(resultado)
+#for entrada in ArrayEntrada:
+saida = re.sub(r"[^\s\w]", "", entrada) # Elimina da sentença "entrada" tudo que não é "espaço", letra ou número e substitui por "vazio". 
 
-#testes com os endereços do exercício
-Array_ruas = ["Rio Branco 23", "Quirino dos Santos 23 b"]
+if re.match(r"^\d", saida): #Neste caso o regex verifica se o texto começa com algum número.
+  saida = re.split(r"(?<=\d)\s", saida, 1) #O regex procura um dígito numérico que seja seguido de um "espaço".
+  print(saida[::-1]) #Invertendo as posições do array.
 
-for entrada in Array_ruas:
-  saida = re.split(r"\s(?=\d)", entrada)
+else:
+  if len(re.split(r"\s(?=\d)", saida)) == 2: #Utilizei o regex para descobrir quantas posições o split possui.
+    saida = re.split(r"\s(?=\d)", saida, 1) #Utilizei "\s(?=\d)" para encontrar um "espaço" seguido por algum digito númerico.
+  else:
+    saida = re.split(r"(?!\d)\s(?=No\s)", saida, 1) #O regex procura a palavra "espaço"No"espaço" após uma sequência de número.
 
-  print(saida[0])
-  print(saida[1])
+  print(saida)
