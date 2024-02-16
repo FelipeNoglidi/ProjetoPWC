@@ -1,0 +1,1 @@
+Olá! Esse projeto foi feito por mim a pedido da PWC como uma etapa de um processo seletivo. Optei pela utilização da linguagem Python para a realização dos desafios. Espero que gostem :D
